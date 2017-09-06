@@ -355,7 +355,7 @@ style:{flex:1},__source:{fileName:_jsxFileName,lineNumber:349}})));
 
 
 
-if(!this.props.url){
+if(!this.props.url||this.props.isLoading){
 return loader;
 }
 

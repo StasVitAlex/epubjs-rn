@@ -368,6 +368,7 @@ class Epub extends Component {
       <Rendition
         ref="rendition"
         url={this.props.src}
+        isLoading={this.props.isLoading}
         flow={this.props.flow}
         minSpreadWidth={this.props.minSpreadWidth}
         stylesheet={this.props.stylesheet}

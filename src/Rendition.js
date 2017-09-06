@@ -355,7 +355,7 @@ class Rendition extends Component {
       </View>
     );
 
-    if (!this.props.url) {
+    if (!this.props.url || this.props.isLoading) {
       return loader;
     }
 
