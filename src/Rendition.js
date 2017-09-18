@@ -49,6 +49,7 @@ class Rendition extends Component {
 
     this.state = {
       loaded: false,
+      relocateAfterResizeLoading: false,
     }
 
   }
@@ -141,12 +142,15 @@ class Rendition extends Component {
   }
 
   display(target) {
-    let spine = typeof target === "number" && target;
+    let spine = Number.isInteger(target) && target;
+    let percentage = !spine && typeof target === 'number' && target;
 
     if (!this._webviewLoaded) return;
 
     if (spine) {
       this.sendToBridge("display", [{ "spine": spine}]);
+    } else if (percentage) {
+      this.sendToBridge("display", [{ "percentage": target}]);
     } else if (target) {
       this.sendToBridge("display", [{ "target": target}]);
     } else {
@@ -306,6 +310,19 @@ class Rendition extends Component {
         this._ready();
         break;
       }
+      case 'relocatedAfterResize': {
+        let {location} = decoded;
+        this._relocatedAfterResize(location);
+        break;
+      }
+      case 'relocatedAfterResizeFinished': {
+        this.setState({ relocateAfterResizeLoading: false });
+        break;
+      }
+      case 'resized': {
+        this.setState({ relocateAfterResizeLoading: true });
+        break;
+      }
       default: {
         console.log("msg", decoded);
       }
@@ -335,6 +352,14 @@ class Rendition extends Component {
   _ready() {
     if (this.locations) {
       this.sendToBridge("setLocations", [this.locations]);
+    }
+  }
+
+  _relocatedAfterResize(location) {
+    this.display(this._visibleLocation.start.percentage);
+
+    if (this.props.onRelocated) {
+      this.props.onRelocated(this._visibleLocation);
     }
   }
 
@@ -376,7 +401,7 @@ class Rendition extends Component {
           // onLoadEnd={this._onWebViewLoaded.bind(this)}
           onMessage={this._onBridgeMessage.bind(this)}
         />
-        {!this.state.loaded ? loader : null}
+        {!this.state.loaded || this.state.relocateAfterResizeLoading ? loader : null}
       </View>
     );
   }
