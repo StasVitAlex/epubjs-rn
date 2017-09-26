@@ -1,4 +1,4 @@
-var _jsxFileName="/home/anton/Projects/epub-js-rn_my/src/Epub.js";var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||false;descriptor.configurable=true;if("value"in descriptor)descriptor.writable=true;Object.defineProperty(target,descriptor.key,descriptor);}}return function(Constructor,protoProps,staticProps){if(protoProps)defineProperties(Constructor.prototype,protoProps);if(staticProps)defineProperties(Constructor,staticProps);return Constructor;};}();var _react=require("react");var _react2=_interopRequireDefault(_react);
+var _jsxFileName="/home/anton/Projects/epub-js-rn_my/src/Epub.js";var _extends=Object.assign||function(target){for(var i=1;i<arguments.length;i++){var source=arguments[i];for(var key in source){if(Object.prototype.hasOwnProperty.call(source,key)){target[key]=source[key];}}}return target;};var _createClass=function(){function defineProperties(target,props){for(var i=0;i<props.length;i++){var descriptor=props[i];descriptor.enumerable=descriptor.enumerable||false;descriptor.configurable=true;if("value"in descriptor)descriptor.writable=true;Object.defineProperty(target,descriptor.key,descriptor);}}return function(Constructor,protoProps,staticProps){if(protoProps)defineProperties(Constructor.prototype,protoProps);if(staticProps)defineProperties(Constructor,staticProps);return Constructor;};}();var _react=require("react");var _react2=_interopRequireDefault(_react);
 
 var _reactNative=require("react-native");
 
@@ -289,7 +289,10 @@ this.rendition=this.refs["rendition"];
 
 
 this.book.ready.then(function(){
-_this3.props.onReady&&_this3.props.onReady(_this3.book);
+_this3.props.onReady&&_this3.props.onReady(_extends({},_this3.book,{
+nextPage:_this3.rendition.nextPage,
+prevPage:_this3.rendition.prevPage}));
+
 });
 
 this.book.loaded.navigation.then(function(nav){
@@ -386,7 +389,7 @@ font:this.props.font,
 display:this.props.location,
 onRelocated:this.onRelocated.bind(this),
 orientation:this.state.orientation,
-backgroundColor:this.props.backgroundColor,__source:{fileName:_jsxFileName,lineNumber:368}}));
+backgroundColor:this.props.backgroundColor,__source:{fileName:_jsxFileName,lineNumber:371}}));
 
 
 }}]);return Epub;}(_react.Component);

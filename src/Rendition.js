@@ -50,8 +50,10 @@ class Rendition extends Component {
     this.state = {
       loaded: false,
       relocateAfterResizeLoading: false,
-    }
+    };
 
+    this.nextPage = this.nextPage.bind(this);
+    this.prevPage = this.prevPage.bind(this);
   }
 
   componentDidMount() {
@@ -213,7 +215,15 @@ class Rendition extends Component {
 
 	unmark (cfiRange, data) {
     this.sendToBridge("removeAnnotation", [cfiRange, data]);
-	}
+  }
+  
+  nextPage() {
+    this.sendToBridge("nextPage");
+  }
+
+  prevPage() {
+    this.sendToBridge("prevPage");
+  }
 
   destroy() {
 
