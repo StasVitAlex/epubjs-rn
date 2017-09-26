@@ -61,6 +61,22 @@
       var result;
 
       switch (decoded.method) {
+        case "nextPage": {
+          if (rendition) {
+            rendition.next();
+          } else {
+            q.push(message);
+          }
+          break;
+        }
+        case "prevPage": {
+          if (rendition) {
+            rendition.prev();
+          } else {
+            q.push(message);
+          }
+          break;
+        }
         case "open": {
           var url = decoded.args[0];
           var options = decoded.args.length > 1 && decoded.args[1];

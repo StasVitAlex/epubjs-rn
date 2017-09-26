@@ -289,7 +289,10 @@ class Epub extends Component {
 
 
     this.book.ready.then(() => {
-      this.props.onReady && this.props.onReady(this.book);
+      this.props.onReady && this.props.onReady(Object.assign({}, this.book, {
+        nextPage: this.rendition.nextPage,
+        prevPage: this.rendition.prevPage,
+      }));
     });
 
     this.book.loaded.navigation.then((nav) => {
